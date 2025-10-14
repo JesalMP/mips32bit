@@ -17,17 +17,13 @@ module instr_mem (       // clock signal
             instr_mem[i] = 32'b00000001001010100100000000100000; // NOP instruction
         else if(i==1)
             instr_mem[i] = 32'b00000010010100111000100000100010; // NOP instruction
-        else if(i==2)    
-            instr_mem[i] = 32'b00001000000000000000000000111111; // NOP instruction
-        else if(i==3)
-            instr_mem[i] = 32'b00001100000000000000000000010000; // NOP instruction
+        // else if(i==2)    
+        //     instr_mem[i] = 32'b00001000000000000000000000111111; // NOP instruction
+        // else if(i==3)
+        //     instr_mem[i] = 32'b00001100000000000000000000010000; // NOP instruction
         else begin
-
-        if(i%2==0)
-            instr_mem[i] = 32'b01010101010101010101010101010101; // some random instruction
-        else
-            instr_mem[i] = 32'b10101010101010101010101010101010; // some random instruction
-            end
+            instr_mem[i] = 32'b00000000000000000000000000000000; // NOP instruction
+        end
     end
     assign instruction = instr_mem[addr[7:0]];
 

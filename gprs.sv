@@ -11,6 +11,22 @@ reg[31:0] regSP; // $sp
 reg[31:0] regFP; // $fp
 reg[31:0] regRA; // $ra
 
+initial begin
+    // Initialize all registers to random values except $zero
+    regAt = $random;
+    for (int i = 0; i < 2; i++) regV[i] = $random;
+    for (int i = 0; i < 4; i++) regA[i] = $random;
+    for (int i = 0; i < 10; i++) regT[i] = $random;
+    for (int i = 0; i < 8; i++) regS[i] = $random;
+    for (int i = 0; i < 2; i++) regK[i] = $random;
+    regGP = $random;
+    regSP = $random;
+    regFP = $random;
+    regRA = $random;
+    $display("Initial Register File State:");
+    print_regs();
+end
+
 task read_reg(input logic [4:0] reg_num, output logic [31:0] reg_data);
     case (reg_num)
         5'd0: reg_data = regZero;
@@ -89,26 +105,26 @@ endtask
 
 task print_regs();
     $display("Register File State:");
-    $display("$zero: %h", regZero);
-    $display("$at:   %h", regAt);
-    $display("$v0:   %h", regV[0]);
-    $display("$v1:   %h", regV[1]);
-    $display("$a0:   %h", regA[0]);
-    $display("$a1:   %h", regA[1]);
-    $display("$a2:   %h", regA[2]);
-    $display("$a3:   %h", regA[3]);
+    $display("$zero: %d", regZero);
+    $display("$at:   %d", regAt);
+    $display("$v0:   %d", regV[0]);
+    $display("$v1:   %d", regV[1]);
+    $display("$a0:   %d", regA[0]);
+    $display("$a1:   %d", regA[1]);
+    $display("$a2:   %d", regA[2]);
+    $display("$a3:   %d", regA[3]);
     for (int i = 0; i < 10; i++) begin
-        $display("$t%d:   %h", i, regT[i]);
+        $display("$t%d:   %d", i, regT[i]);
     end
     for (int i = 0; i < 8; i++) begin
-        $display("$s%d:   %h", i, regS[i]);
+        $display("$s%d:   %d", i, regS[i]);
     end
-    $display("$k0:   %h", regK[0]);
-    $display("$k1:   %h", regK[1]);
-    $display("$gp:   %h", regGP);
-    $display("$sp:   %h", regSP);
-    $display("$fp:   %h", regFP);
-    $display("$ra:   %h", regRA);
+    $display("$k0:   %d", regK[0]);
+    $display("$k1:   %d", regK[1]);
+    $display("$gp:   %d", regGP);
+    $display("$sp:   %d", regSP);
+    $display("$fp:   %d", regFP);
+    $display("$ra:   %d", regRA);
     $display("-------------------------");
 endtask
 endmodule

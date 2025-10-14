@@ -1,36 +1,29 @@
-module data_memory (
-  input  logic        clk,
-  input  logic        mem_read,
-  input  logic        mem_write,
-  input  logic [7:0] addr,
-  input  logic [31:0] data_in,
-  output logic [31:0] data_out,
-  input  logic        rst_n
-);
-  // 256 words = 1 KB of data memory
-  logic [31:0] memory [0:255];
+module MEM(logic clk,
+           logic rst_n,
+           logic MemRead,
+           logic MemWrite,
+           logic [31:0] aluOut,
+           logic [31:0] writeData,
+           output logic [31:0] readData);
 
+    // Data memory: 256 words = 1 KB
+    data_mem data_mem_inst (
+        .clk(clk),
+        .rst_n(rst_n),
+        .addr(aluOut[7:0]), // Word-aligned access
+        .write_data(writeData),
+        .MemRead(MemRead),
+        .MemWrite(MemWrite),
+        .read_data(readData)
+    );
 
-  // Optional: hold previous data_out when not reading; synchronous read & write
-  // Remove any # delays for synthesizability
-  int i;
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      data_out <= 32'b0;
-      for (i = 0; i < 256; i++) begin
-        memory[i] <= 32'b0;
-      end
-    end else begin
-      // Write when mem_write asserted and mem_read deasserted
-      if (mem_write && !mem_read) begin
-        memory[addr[7:0]] <= data_in;
-      end
-
-      // Read when mem_read asserted and mem_write deasserted
-      if (mem_read && !mem_write) begin
-        data_out <= memory[addr[7:0]];
-      end
-      // If both are 0 or both are 1, retain previous data_out
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            // Reset logic if needed
+        end
+        else begin    
+            $strobe("MEM Stage - ALU Out (Address): %0d, Write Data: %0d, Read Data: %0d, MemRead: %0b, MemWrite: %0b", aluOut, writeData, readData, MemRead, MemWrite);
+            $strobe("--------------------------------------------------");
+        end
     end
-  end
 endmodule

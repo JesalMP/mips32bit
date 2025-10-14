@@ -15,8 +15,8 @@ module IF (input logic clk,
     always_ff @(posedge clk) begin
         
         instruction <= instructionIF; // Fetch instruction
-        $display("IF Stage - PC: %0b, Instruction: %0b, clock number: %0b", pc_in, instructionIF, clock_number);
-        $display("--------------------------------------------------");
+        $strobe("IF Stage - PC: %0b, Instruction: %0b, clock number: %0b", pc_in, instructionIF, clock_number);
+        $strobe("--------------------------------------------------");
         clock_number <= clock_number + 1'b1; // Increment clock number
     end
 endmodule
