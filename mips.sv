@@ -12,19 +12,19 @@ module mips (input logic clk,
     );
     logic [31:0] instruction_to_ID;
     logic [5:0] opcode;
-    logic [4:0] rs;
-    logic [4:0] rt;
+    logic [31:0] rs_data;
+    logic [31:0] rt_data;
     logic [4:0] rd;
     logic [5:0] shamt;
     logic [5:0] funct;
-    logic [15:0] address;
+    logic [31:0] address;
 
     ID id_inst (
         .clk(clk),
         .instruction(instruction_to_ID),
         .opcode(opcode),
-        .rs(rs),
-        .rt(rt),
+        .rs_data(rs_data),
+        .rt_data(rt_data),
         .rd(rd),
         .shamt(shamt),
         .funct(funct),
@@ -37,8 +37,6 @@ module mips (input logic clk,
             end else begin
             $display("INIT PC: %0b, clock number: %0b", pc, clock_number);
             $display("--------------------------------------------------");
-            gprs_inst.read_reg(rs, rs_data);
-            gprs_inst.read_reg(rt, rt_data);
             $display("RS Data: %0d, RT Data: %0d", rs_data, rt_data);
             $display("--------------------------------------------------");
             clock_number <= clock_number + 1'b1; // Increment clock number
@@ -53,7 +51,7 @@ module mips (input logic clk,
 
     logic [2:0] aluControl;
     logic [31:0] aluOut;
-    logic [2:0] alu_op;
+    logic zeroFlag;
 
     
 
@@ -79,20 +77,23 @@ module mips (input logic clk,
         .ALUOp(ALUOp)
     );
     
-
-    alu_control aluControl_inst (
-        .alu_op(ALUOp),
-        .funct(funct),
-        .alu_control(aluControl)
-    );
-    
     EX ex_inst (
         .clk(clk),
         .rst_n(rst_n),
-        .aluControl(aluControl),
+        .RegDst(RegDst),
+        .ALUSrc(ALUSrc),
+        .MemtoReg(MemtoReg),
+        .RegWrite(RegWrite),
+        .MemRead(MemRead),
+        .MemWrite(MemWrite),
+        .Branch(Branch),
+        .ALUOp(ALUOp),
         .srcA(rs_data),
         .srcB(rt_data),
-        .aluOut(aluOut)
+        .aluOut(aluOut),
+        .funct(funct),
+        .zeroFlag(zeroFlag),
+        .immediate_ext(address)
     );
 
 endmodule

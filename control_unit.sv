@@ -50,9 +50,9 @@ module ControlUnit (
                 // NOP / unsupported instruction
             end
         endcase
-        $display("Control Unit - Opcode: %0b, RegDst: %0b, ALUSrc: %0b, MemtoReg: %0b, RegWrite: %0b, MemRead: %0b, MemWrite: %0b, Branch: %0b, ALUOp: %0b", 
-                 opcode, RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp);
-        $display("--------------------------------------------------");
+        // $display("Control Unit - Opcode: %0b, RegDst: %0b, ALUSrc: %0b, MemtoReg: %0b, RegWrite: %0b, MemRead: %0b, MemWrite: %0b, Branch: %0b, ALUOp: %0b", 
+        //          opcode, RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp);
+        // $display("--------------------------------------------------");
     end
 endmodule
 

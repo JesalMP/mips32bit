@@ -22,8 +22,8 @@ module MEM(logic clk,
             // Reset logic if needed
         end
         else begin    
-            $strobe("MEM Stage - ALU Out (Address): %0d, Write Data: %0d, Read Data: %0d, MemRead: %0b, MemWrite: %0b", aluOut, writeData, readData, MemRead, MemWrite);
-            $strobe("--------------------------------------------------");
+            // $strobe("MEM Stage - ALU Out (Address): %0d, Write Data: %0d, Read Data: %0d, MemRead: %0b, MemWrite: %0b", aluOut, writeData, readData, MemRead, MemWrite);
+            // $strobe("--------------------------------------------------");
         end
     end
 endmodule

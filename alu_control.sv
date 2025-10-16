@@ -16,13 +16,13 @@ module alu_control (
                     6'b101010: alu_control = 3'b111; // SLT
                 endcase
                 if (funct == 6'b100000) begin
-                    $display("ALU Control - ADD operation selected, %b",alu_control);
+                    //$display("ALU Control - ADD operation selected, %b",alu_control);
 
                 end
             end
             default: alu_control = 3'bxxx;
         endcase
-        $display("ALU Control - ALUOp: %0b, Funct: %0b, ALU Control: %0b", alu_op, funct, alu_control);
-        $display("--------------------------------------------------");
+        // $display("ALU Control - ALUOp: %0b, Funct: %0b, ALU Control: %0b", alu_op, funct, alu_control);
+        // $display("--------------------------------------------------");
     end
 endmodule
