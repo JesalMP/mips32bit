@@ -24,7 +24,6 @@ module EX (input logic clk,
         .alu_op(ALUOp),
         .alu_control(aluControl_from_alu_control)
     );
-    // ALU Control Unit
         logic zeroFlagEX;
         logic [31:0] aluResult;
         logic [31:0] srcB_to_alu;
@@ -38,11 +37,8 @@ module EX (input logic clk,
         .zeroFlag(zeroFlagEX)
     );
     always_comb begin
-        // Select srcB based on ALUSrc
         srcB_to_alu = ALUSrc ? immediate_ext : srcB;
-        // Pass srcA directly
         srcA_to_alu = srcA;
-        // Pass ALU control
         aluControl_to_alu = aluControl_from_alu_control;
     end
     always_ff @(posedge clk or negedge rst_n) begin

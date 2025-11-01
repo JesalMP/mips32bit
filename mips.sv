@@ -33,13 +33,13 @@ module mips (input logic clk,
                 gprs gprs_inst ();
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            pc <= 8'b0; // Reset PC to 0
+            pc <= 8'b0; 
             end else begin
             $display("INIT PC: %0b, clock number: %0b", pc, clock_number);
             $display("--------------------------------------------------");
             $display("RS Data: %0d, RT Data: %0d", rs_data, rt_data);
             $display("--------------------------------------------------");
-            clock_number <= clock_number + 1'b1; // Increment clock number
+            clock_number <= clock_number + 1'b1; 
             
             end
             pc <= pc + 1'b1;

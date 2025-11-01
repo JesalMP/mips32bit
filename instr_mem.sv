@@ -1,8 +1,7 @@
-module instr_mem (       // clock signal
-    input  logic [7:0] addr,      // address from PC
-    output logic [31:0] instruction // fetched instruction
+module instr_mem (
+    input  logic [7:0] addr,
+    output logic [31:0] instruction
 );
-    // Instruction memory: 256 words = 1 KB
     logic [31:0] instr_mem [0:255];
 
 
@@ -14,15 +13,15 @@ module instr_mem (       // clock signal
 
     initial for(int i=0; i<256; i=i+1) begin
         if(i==0)
-            instr_mem[i] = 32'b00000001001010100100000000100000; // NOP instruction
+            instr_mem[i] = 32'b00000001001010100100000000100000;
         else if(i==1)
-            instr_mem[i] = 32'b00000010010100111000100000100010; // NOP instruction
+            instr_mem[i] = 32'b00000010010100111000100000100010;
         // else if(i==2)    
-        //     instr_mem[i] = 32'b00001000000000000000000000111111; // NOP instruction
+        //     instr_mem[i] = 32'b00001000000000000000000000111111; 
         // else if(i==3)
-        //     instr_mem[i] = 32'b00001100000000000000000000010000; // NOP instruction
+        //     instr_mem[i] = 32'b00001100000000000000000000010000; 
         else begin
-            instr_mem[i] = 32'b00000000000000000000000000000000; // NOP instruction
+            instr_mem[i] = 32'b00000000000000000000000000000000; 
         end
     end
     assign instruction = instr_mem[addr[7:0]];

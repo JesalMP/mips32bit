@@ -12,7 +12,6 @@ reg[31:0] regFP; // $fp
 reg[31:0] regRA; // $ra
 
 initial begin
-    // Initialize all registers to random values except $zero
     regAt = $random;
     for (int i = 0; i < 2; i++) regV[i] = $random;
     for (int i = 0; i < 4; i++) regA[i] = $random;
@@ -66,7 +65,7 @@ task read_reg(input logic [4:0] reg_num, output logic [31:0] reg_data);
 endtask
 
 task write_reg(input logic [4:0] reg_num, input logic [31:0] reg_data);
-    if (reg_num != 5'd0) begin // $zero is read-only
+    if (reg_num != 5'd0) begin 
         case (reg_num)
             5'd1: regAt = reg_data;
             5'd2: regV[0] = reg_data;
